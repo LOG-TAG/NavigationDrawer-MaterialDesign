@@ -20,7 +20,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:background="@color/nliveo_white"
-    android:fitsSystemWindows="true"
+
     tools:ignore="MissingPrefix">
 
     <ListView
@@ -31,11 +31,11 @@
         android:layout_above="@+id/layoutFooter"
         android:cacheColorHint="@color/nliveo_transparent"
         android:choiceMode="singleChoice"
-        android:fitsSystemWindows="true"
+
         android:divider="@color/nliveo_transparent"
         android:background="@color/nliveo_white"
         android:dividerHeight="0dp" />
-
+    <!-- android:fitsSystemWindows="true"-->
 
     <RelativeLayout
         android:id="@+id/layoutFooter"

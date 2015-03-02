@@ -32,11 +32,11 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:fitsSystemWindows="true"
     app:statusBarBackground="?attr/colorPrimary"
     tools:ignore="MissingPrefix"
     android:layout_below="@+id/toolbar">
-    <!-- android:fitsSystemWindows="true"-->
+
 
 <!--    <LinearLayout
         android:layout_width="match_parent"
@@ -51,18 +51,18 @@
         <include layout="@layout/navigation_container" />
    <!-- </LinearLayout>-->
 
-  <FrameLayout
+  <br.liveo.ui.ScrimInsetsFrameLayout
         android:id="@+id/relativeDrawer"
         android:layout_width="@dimen/drawer_layout_width"
         android:layout_height="match_parent"
-
+        android:fitsSystemWindows="true"
         android:layout_gravity="start"
-      >
+        app:insetForeground="#4000">
 
         <include
-
+            android:fitsSystemWindows="true"
             layout="@layout/navigation_list_drawer" />
-    </FrameLayout>
+    </br.liveo.ui.ScrimInsetsFrameLayout>
 </android.support.v4.widget.DrawerLayout>
 
 </RelativeLayout>

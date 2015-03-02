@@ -112,6 +112,9 @@ public abstract class NavigationLiveo extends ActionBarActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 
+      //  RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mToolbar.getLayoutParams();
+       // params.addRule(RelativeLayout.BELOW, R.id.drawerLayout);
+
         mDrawerToggle = new ActionBarDrawerToggleCompat(this, mDrawerLayout, mToolbar);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 

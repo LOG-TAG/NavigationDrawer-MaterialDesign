@@ -20,9 +20,9 @@
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:background="@color/nliveo_white"
-    android:fitsSystemWindows="true"
-    tools:ignore="MissingPrefix">
 
+    tools:ignore="MissingPrefix">
+    <!-- android:fitsSystemWindows="true"-->
     <RelativeLayout
         android:id="@+id/footerDrawer"
         android:layout_width="match_parent"
