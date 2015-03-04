@@ -25,23 +25,22 @@
 
     <ListView
         android:id="@+id/list"
-        android:layout_width="@dimen/drawer_layout_width"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:layout_above="@+id/layoutFooter"
         android:cacheColorHint="@color/nliveo_transparent"
         android:choiceMode="singleChoice"
 
-        android:divider="@color/nliveo_transparent"
+        android:divider="@color/nliveo_blue_gray_colorPrimaryDark"
         android:background="@color/nliveo_white"
-        android:dividerHeight="0dp" />
+        android:dividerHeight="1dp" />
     <!-- android:fitsSystemWindows="true"-->
 
     <RelativeLayout
         android:id="@+id/layoutFooter"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -56,10 +55,10 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
                 android:contentDescription="@string/clear" />
 
             <TextView
@@ -69,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="0dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:textColor="#000000"

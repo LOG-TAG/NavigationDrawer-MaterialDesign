@@ -122,8 +122,12 @@ public abstract class NavigationLiveo extends ActionBarActivity {
         mIconFooter = (ImageView) this.findViewById(R.id.iconFooter);
 
         mFooterDrawer = (RelativeLayout) this.findViewById(R.id.footerDrawer);
+
+
         mFooterDrawer.setOnClickListener(onClickFooterDrawer);
 
+        //edit
+        mFooterDrawer.setBackgroundColor(getResources().getColor(R.color.custom_green));
         mRelativeDrawer = (FrameLayout) this.findViewById(R.id.relativeDrawer);
 
         this.setSupportActionBar(mToolbar);
@@ -270,11 +274,12 @@ public abstract class NavigationLiveo extends ActionBarActivity {
         mListExtra.add(2, mColorIcon);
         mListExtra.add(3, mColorName);
         mListExtra.add(4, mColorSeparator);
-
+//
         mNavigationAdapter = new NavigationLiveoAdapter(this, NavigationLiveoList.getNavigationAdapter(mListNameItem, mListIcon,
                 mListHeader, mSparseCounter, mColorSelected, mRemoveSelector, this), mRemoveAlpha, mListExtra);
 
         mList.setAdapter(mNavigationAdapter);
+
     }
 
     /**
@@ -473,14 +478,15 @@ public abstract class NavigationLiveo extends ActionBarActivity {
      * @param visible true or false.
      */
     public void setFooterNavigationVisible(boolean visible){
+        mFooterDrawer.setBackgroundColor(getResources().getColor(R.color.custom_green));
         this.mFooterDrawer.setVisibility((visible) ? View.VISIBLE : View.GONE);
     }
-
+//==============================
     /**
      * Item color selected in the list - name and icon (use before the setNavigationAdapter)
      * @param colorId color id.
      */
-    public void setColorSelectedItemNavigation(int colorId){
+    public void setColorSelectedItemNavigation(int colorId) {
         this.mColorSelected = colorId;
     }
 

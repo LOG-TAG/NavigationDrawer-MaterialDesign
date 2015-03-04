@@ -187,9 +187,16 @@ public class NavigationLiveoAdapter extends BaseAdapter {
                 setAlpha(holder.title, (item.checked ? 1f : 0.87f));
 
                 holder.title.setTextColor((!item.isHeader && item.checked && item.colorSelected > 0 ?
-                        mcontext.getResources().getColor(item.colorSelected) :
-                        mColorName > 0 ? mcontext.getResources().getColor(mColorName) :
+                       mcontext.getResources().getColor(item.colorSelected) :
+                       mColorName > 0 ? mcontext.getResources().getColor(mColorName) :
                         mcontext.getResources().getColor(R.color.nliveo_black)));
+
+                //holder.title.setTextColor((!item.isHeader && item.checked && item.colorSelected > 0 ?
+                     //   mcontext.getResources().getColor(R.color.nliveo_black) :
+                      //  0 > 0 ? mcontext.getResources().getColor(R.color.custom_green) :
+                      //          mcontext.getResources().getColor(R.color.nliveo_black)));
+
+
             }else{
                 holder.layoutSeparator.setVisibility(View.VISIBLE);
 
