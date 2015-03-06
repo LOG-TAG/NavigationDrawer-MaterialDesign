@@ -21,78 +21,119 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.BitmapShader;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.test.suitebuilder.annotation.Suppress;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import br.liveo.navigationliveo.R;
+
 public class RoundedImageView extends ImageView {
 
+    private int borderWidth = 5;
+    private int viewWidth;
+    private int viewHeight;
+    private Bitmap image;
+    private Paint paint;
+    private Paint paintBorder;
+    private BitmapShader shader;
     public RoundedImageView(Context context) {
         super(context);
-        // TODO Auto-generated constructor stub
+        setup();
     }
-
     public RoundedImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setup();
     }
-
     public RoundedImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setup();
+    }
+    private void setup()
+    {
+// init paint
+        paint = new Paint();
+        paint.setAntiAlias(true);
+        paintBorder = new Paint();
+        setBorderColor(getResources().getColor(R.color.custom_green));
+        paintBorder.setAntiAlias(true);
+    }
+    public void setBorderWidth(int borderWidth)
+    {
+        this.borderWidth = borderWidth;
+        this.invalidate();
+    }
+    public void setBorderColor(int borderColor)
+    {
+        if(paintBorder != null)
+            paintBorder.setColor(borderColor);
+        this.invalidate();
+    }
+    private void loadBitmap()
+    {
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) this.getDrawable();
+        if(bitmapDrawable != null)
+            image = bitmapDrawable.getBitmap();
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-
-        Drawable drawable = getDrawable();
-
-        if (drawable == null) {
-            return;
+    public void onDraw(Canvas canvas)
+    {
+//load the bitmap
+        loadBitmap();
+// init shader
+        if(image !=null)
+        {
+            shader = new BitmapShader(Bitmap.createScaledBitmap(image, canvas.getWidth(), canvas.getHeight(), false), Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            paint.setShader(shader);
+            int circleCenter = viewWidth / 2;
+// circleCenter is the x or y of the view's center
+// radius is the radius in pixels of the cirle to be drawn
+// paint contains the shader that will texture the shape
+            canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth, paintBorder);
+            canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter, paint);
         }
-
-        if (getWidth() == 0 || getHeight() == 0) {
-            return;
-        }
-
-        Bitmap b = ((BitmapDrawable) drawable).getBitmap();
-        Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
-
-        int w = getWidth();
-
-        Bitmap roundBitmap = getCroppedBitmap(bitmap, w);
-        canvas.drawBitmap(roundBitmap, 0, 0, null);
     }
-
-    public static Bitmap getCroppedBitmap(Bitmap bmp, int radius) {
-
-        Bitmap sbmp;
-
-        if (bmp.getWidth() != radius || bmp.getHeight() != radius) {
-            sbmp = Bitmap.createScaledBitmap(bmp, radius, radius, false);
-        }else {
-            sbmp = bmp;
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        int width = measureWidth(widthMeasureSpec);
+        int height = measureHeight(heightMeasureSpec, widthMeasureSpec);
+        viewWidth = width - (borderWidth *2);
+        viewHeight = height - (borderWidth*2);
+        setMeasuredDimension(width, height);
+    }
+    private int measureWidth(int measureSpec)
+    {
+        int result = 0;
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+        if (specMode == MeasureSpec.EXACTLY) {
+// We were told how big to be
+            result = specSize;
+        } else {
+// Measure the text
+            result = viewWidth;
         }
-
-        Bitmap output = Bitmap.createBitmap(sbmp.getWidth(),
-                sbmp.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, sbmp.getWidth(), sbmp.getHeight());
-
-        paint.setAntiAlias(true);
-        paint.setFilterBitmap(true);
-        paint.setDither(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(Color.parseColor("#BAB399"));
-        canvas.drawCircle(sbmp.getWidth() / 2 + 0.7f, sbmp.getHeight() / 2 + 0.7f,
-                sbmp.getWidth() / 2 + 0.1f, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(sbmp, rect, rect, paint);
-
-        return output;
+        return result;
+    }
+    private int measureHeight(int measureSpecHeight, int measureSpecWidth) {
+        int result = 0;
+        int specMode = MeasureSpec.getMode(measureSpecHeight);
+        int specSize = MeasureSpec.getSize(measureSpecHeight);
+        if (specMode == MeasureSpec.EXACTLY) {
+// We were told how big to be
+            result = specSize;
+        } else {
+// Measure the text (beware: ascent is a negative number)
+            result = viewHeight;
+        }
+        return result;
     }
 }
